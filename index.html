@@ -361,7 +361,24 @@
   .calc-empty { color: #8C9196; font-size: 13px; line-height: 1.6; }
   @media (max-width: 900px) { .calc-wrap { grid-template-columns: 1fr; gap: 28px; } .calc-fields { grid-template-columns: 1fr; } }
 
-  /* ============ QUALITY ============ */
+    /* ---- calc v2: геометрия + цена ---- */
+  .cf select { width: 100%; box-sizing: border-box; background: var(--paper); border: 2px solid var(--line); padding: 10px 12px; font-family: 'JetBrains Mono', monospace; font-size: 14.5px; color: var(--ink); border-radius: 0; appearance: none; -webkit-appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--ink) 50%), linear-gradient(135deg, var(--ink) 50%, transparent 50%); background-position: calc(100% - 18px) 55%, calc(100% - 13px) 55%; background-size: 5px 5px; background-repeat: no-repeat; cursor: pointer; }
+  .cf select:focus { outline: none; border-color: var(--blue); }
+  .cf select.bad { border-color: #E52222; background-color: #FFF6F4; }
+  .cf.wide { grid-column: 1 / -1; }
+  .check { display: flex; align-items: center; gap: 9px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--ink); background: var(--paper); border: 2px solid var(--line); padding: 9px 12px; cursor: pointer; }
+  .check input { width: 16px; height: 16px; accent-color: var(--blue); margin: 0; }
+  .rhead { font-family: 'Oswald', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: #8C9196; margin: 20px 0 2px; padding-bottom: 7px; border-bottom: 2px solid #2A2E33; }
+  .rhead.prc { color: var(--blue); border-bottom-color: rgba(255,106,0,.5); }
+  .lad { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 12px 0 2px; }
+  .lad div { border: 1px solid #2A2E33; padding: 9px 4px 8px; text-align: center; }
+  .lad b { display: block; font-family: 'JetBrains Mono', monospace; font-size: 13px; font-weight: 600; color: #fff; }
+  .lad span { display: block; font-family: 'JetBrains Mono', monospace; font-size: 8.5px; letter-spacing: 0.08em; text-transform: uppercase; color: #8C9196; margin-top: 3px; }
+  .rtot { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; margin-top: 12px; padding: 12px 14px; border: 1px solid rgba(255,106,0,.5); background: rgba(255,106,0,.09); }
+  .rtot span { font-size: 12.5px; color: #B9BEC6; }
+  .rtot b { font-family: 'JetBrains Mono', monospace; font-size: 23px; font-weight: 700; color: var(--blue); white-space: nowrap; }
+  .pnote { font-family: 'JetBrains Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: #8C9196; margin-top: 8px; }
+/* ============ QUALITY ============ */
   .quality { background: var(--paper); }
   .quality .body { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; padding-bottom: 64px; }
   .q-steps { border-top: 2px solid var(--ink); }
@@ -657,44 +674,114 @@
 <section class="calc" id="calc">
   <div class="inner">
     <div class="sec-head">
-      <div class="sec-num">03 / РАСЧЁТ</div>
+      <div class="sec-num">03 / РАСЧЁТ И ЦЕНА</div>
       <div class="sec-title">Калькулятор <span class="gold">пружины сжатия</span></div>
       <p style="max-width:640px;color:var(--gray);font-size:15px;line-height:1.55;margin-top:10px">
-        Четыре исходных данных — и вы видите жёсткость, рабочие витки, свободную высоту,
-        класс нагрузки и предварительный чертёж. Расчёт по методике винтовой пружины
-        круглого сечения, сталь 60С2А.
+        Задайте геометрию — и сразу видны жёсткость, усилие, напряжения, чертёж
+        и предварительная цена детали и партии. Винтовая пружина круглого сечения,
+        сталь 60С2А, малые серии от 1 шт.
       </p>
     </div>
     <div class="calc-wrap">
       <div class="calc-form">
-        <h3>Исходные данные узла</h3>
+        <h3>Геометрия пружины</h3>
         <div class="step">Шаг 1 / 2 · ввод</div>
         <div class="calc-fields">
-          <div class="cf"><label for="cd_d">Ø проволоки d, мм</label><input id="cd_d" type="number" value="20" min="4" max="80" step="0.5"><div class="hint">4–80 · горячая навивка от 16</div></div>
-          <div class="cf"><label for="cd_D">Ø средний D, мм</label><input id="cd_D" type="number" value="120" min="20" max="400" step="1"><div class="hint">по оси проволоки</div></div>
-          <div class="cf"><label for="cd_s">Рабочий ход s, мм</label><input id="cd_s" type="number" value="85" min="5" max="500" step="1"><div class="hint">перемещение под нагрузкой</div></div>
-          <div class="cf"><label for="cd_F">Усилие F, Н</label><input id="cd_F" type="number" value="5800" min="100" max="500000" step="10"><div class="hint">при конце хода</div></div>
+          <div class="cf wide"><label for="cd_d">Ø проволоки d, мм</label>
+            <select id="cd_d">
+                    <option value="2">2</option>
+          <option value="2.5">2.5</option>
+          <option value="3">3</option>
+          <option value="3.5">3.5</option>
+          <option value="4">4</option>
+          <option value="4.5">4.5</option>
+          <option value="5">5</option>
+          <option value="5.5">5.5</option>
+          <option value="6">6</option>
+          <option value="6.5">6.5</option>
+          <option value="7">7</option>
+          <option value="8">8</option>
+          <option value="9">9</option>
+          <option value="10">10</option>
+          <option value="11">11</option>
+          <option value="12" selected>12</option>
+          <option value="13">13</option>
+          <option value="14">14</option>
+          <option value="16">16</option>
+          <option value="18">18</option>
+          <option value="20">20</option>
+          <option value="22">22</option>
+          <option value="25">25</option>
+          <option value="28">28</option>
+          <option value="30">30</option>
+          <option value="32">32</option>
+          <option value="36">36</option>
+          <option value="40">40</option>
+          <option value="45">45</option>
+          <option value="50">50</option>
+          <option value="55">55</option>
+          <option value="60">60</option>
+          <option value="65">65</option>
+          <option value="70">70</option>
+          <option value="75">75</option>
+          <option value="80">80</option>
+            </select>
+            <div class="hint">ряд ГОСТ 9389 / 14963 · холодная навивка до 16 · горячая от 16</div>
+          </div>
+          <div class="cf"><label for="cd_D1">Ø наружный D₁, мм</label><input id="cd_D1" type="number" value="90" min="10" max="600" step="1"><div class="hint">по наружной стороне витка</div></div>
+          <div class="cf"><label for="cd_l0">Высота свободная l₀, мм</label><input id="cd_l0" type="number" value="250" min="8" max="2000" step="1"><div class="hint">без нагрузки</div></div>
+          <div class="cf"><label for="cd_l2">Высота рабочая l₂, мм</label><input id="cd_l2" type="number" value="200" min="4" max="1999" step="1"><div class="hint">под нагрузкой · меньше l₀ − 1</div></div>
+          <div class="cf"><label for="cd_n1">Витков полное n₁</label><input id="cd_n1" type="number" value="8" min="2.5" max="40" step="0.5"><div class="hint">вместе с опорными</div></div>
+          <div class="cf"><label for="cd_n">Витков рабочих n</label><input id="cd_n" type="number" value="6" min="1" max="40" step="0.5"><div class="hint">обычно n₁ − 2</div></div>
+          <div class="cf"><label for="cd_nav">Направление навивки</label>
+            <select id="cd_nav"><option value="2" selected>правое</option><option value="1">левое</option><option value="3">любое</option></select>
+          </div>
+          <div class="cf"><label for="cd_op">Опорные витки</label>
+            <select id="cd_op"><option value="1" selected>зашлифованы, оба</option><option value="2">зашлифован один</option><option value="3">не зашлифованы</option></select>
+          </div>
+          <div class="cf"><label>Покраска</label>
+            <label class="check"><input type="checkbox" id="cd_pkr"> порошковое покрытие</label>
+            <div class="hint">опция — в расчёт цены не входит — уточнит менеджер</div>
+          </div>
+          <div class="cf"><label for="cd_kol">Партия, шт</label><input id="cd_kol" type="number" value="1" min="1" max="100" step="1"><div class="hint">1–100 · больше партия — ниже цена</div></div>
         </div>
         <div class="calc-actions">
           <button class="calc-btn" id="cd_go" type="button">Рассчитать</button>
-          <span class="calc-note">расчёт мгновенный · чертёж — сразу</span>
+          <span class="calc-note">расчёт мгновенный · чертёж и цена — сразу</span>
         </div>
       </div>
       <div class="calc-res" id="cd_res">
         <h3>Результат</h3>
-        <div class="step">Шаг 2 / 2 · спецификация</div>
-        <div class="calc-empty" id="cd_empty">Введите параметры слева и нажмите «Рассчитать».<br>Здесь появится полная предварительная спецификация пружины.</div>
+        <div class="step">Шаг 2 / 2 · спецификация и цена</div>
+        <div class="calc-empty" id="cd_empty">Задайте геометрию слева и нажмите «Рассчитать».<br>Здесь появятся полная спецификация и предварительная цена.</div>
         <div id="cd_table" style="display:none">
-          <div class="rrow"><span class="rk">Жёсткость C</span><span class="rv" id="r_k">—</span></div>
-          <div class="rrow"><span class="rk">Витков рабочих n</span><span class="rv" id="r_n">—</span></div>
-          <div class="rrow"><span class="rk">Высота свободная H₀</span><span class="rv" id="r_h">—</span></div>
-          <div class="rrow"><span class="rk">Высота до смыкания L<sub>c</sub></span><span class="rv" id="r_lc">—</span></div>
-          <div class="rrow"><span class="rk">Напряжение τ (Валь)</span><span class="rv" id="r_tau">—</span></div>
+          <div class="rhead">Инженерная часть</div>
+          <div class="rrow"><span class="rk">Жёсткость c</span><span class="rv" id="r_c">—</span></div>
+          <div class="rrow"><span class="rk">Индекс C = D<sub>ср</sub>/d</span><span class="rv" id="r_i">—</span></div>
+          <div class="rrow"><span class="rk">Коэф. кривизны k (Валя)</span><span class="rv" id="r_kw">—</span></div>
+          <div class="rrow"><span class="rk">Шаг t</span><span class="rv" id="r_t">—</span></div>
+          <div class="rrow"><span class="rk">Длина заготовки L</span><span class="rv" id="r_L">—</span></div>
+          <div class="rrow"><span class="rk">Масса заготовки</span><span class="rv" id="r_m">—</span></div>
+          <div class="rrow"><span class="rk">Высота плотного сжатия</span><span class="rv" id="r_hs">—</span></div>
+          <div class="rrow"><span class="rk">Прогиб рабочий S₂ = l₀ − l₂</span><span class="rv" id="r_s2">—</span></div>
+          <div class="rrow"><span class="rk">Усилие при l₂</span><span class="rv" id="r_f2">—</span></div>
+          <div class="rrow"><span class="rk">Напряжение τ (Валя)</span><span class="rv" id="r_tau">—</span></div>
           <div class="rrow"><span class="rk">Класс нагрузки</span><span class="rv" id="r_cls">—</span></div>
           <div class="rrow"><span class="rk">Материал</span><span class="rv">60С2А · ГОСТ 14963</span></div>
-          <div class="rrow"><span class="rk">Масса ~</span><span class="rv" id="r_m">—</span></div>
           <div class="rrow"><span class="rk">Артикул расчёта</span><span class="rv" id="r_art">—</span></div>
           <div class="rrow"><span class="rk">Срок</span><span class="rv sig" id="r_term">—</span></div>
+
+          <div class="rhead prc">Предварительная цена</div>
+          <div class="rrow"><span class="rk">за 1 шт при партии <span id="r_kq">1</span></span><span class="rv" id="r_p1">—</span></div>
+          <div class="lad">
+            <div><b id="r_l5">—</b><span>от 5 шт</span></div>
+            <div><b id="r_l10">—</b><span>от 10 шт</span></div>
+            <div><b id="r_l20">—</b><span>от 20 шт</span></div>
+            <div><b id="r_l50">—</b><span>от 50 шт</span></div>
+          </div>
+          <div class="rtot"><span>Стоимость партии</span><b id="r_tot">—</b></div>
+          <div class="pnote">предварительная оценка ±20% · не является офертой</div>
+
           <div class="calc-warns" id="r_warns"></div>
           <div class="calc-actions">
             <button class="calc-btn" id="cd_draw" type="button">Чертёж · печать / PDF</button>
@@ -704,7 +791,7 @@
         </div>
       </div>
     </div>
-    <p class="calc-note" style="margin-top:18px">Расчёт предварительный: винтовая пружина сжатия круглого сечения, G = 78 500 Н/мм², допускаемое τ для 60С2А принято 700 Н/мм² (статика). Рабочий чертёж и подбор материала под циклическую нагрузку — за инженером UPSILA.</p>
+    <p class="calc-note" style="margin-top:18px">Расчёт по методике винтовой пружины сжатия круглого сечения: G = 78 500 Н/мм², допускаемое τ для 60С2А — 700 Н/мм² (статика), коэффициент Валя. Цена — модель малых серий, откалиброванная по рыночным данным производителей РФ 2026 (точность ±20%): наладка распределяется на партию, поэтому цена за штуку падает с объёмом. Рабочая документация и точное КП — после проверки инженером UPSILA.</p>
   </div>
 </section>
 
@@ -828,68 +915,140 @@
 <script>
 (function(){
   var G = 78500, TAU_ALLOW = 700;
-  function val(id){ return parseFloat(document.getElementById(id).value.replace(',', '.')); }
+  function val(id){ var el = document.getElementById(id); return parseFloat(String(el.value).replace(',', '.')); }
   function fmt(x, dec){ return x.toLocaleString('ru-RU', {minimumFractionDigits: dec, maximumFractionDigits: dec}); }
+  function fmtR(x){ return Math.round(x).toLocaleString('ru-RU') + ' \u20BD'; }
   var last = null;
 
+  /* ---------- ценовая модель (малые серии, калибровка по рынку РФ 2026) ---------- */
+  var PDS  = [1,2,3,5,8,12,16,20,25,30,40];
+  var PCUR = [
+    [2163.06,2170.38,2189.9,2269.2,1388.36,1306.62,2708.4,3254.96,3745.4,4693.34,7884.86],
+    [535,541,560,635,889,873,1054,1542,1975,2818,5655],
+    [284,290,308,380,713,669,800,1246,1634,2399,4967],
+    [205,211,228,297,618,545,680,1106,1477,2210,4755],
+    [181,186,203,269,543,462,615,1032,1396,2147,4622]
+  ];
+  var PALPHA = [0.02, 0.10, 0.15, 0.20, 0.28];
+  var PQREP  = [1, 5, 10, 20, 50];
+  function pInterp(ys, x){
+    var xs = PDS, n = xs.length;
+    var lx = Math.log(x);
+    if(x <= xs[0]) return ys[0];
+    if(x >= xs[n-1]){
+      var sl = (Math.log(ys[n-1]) - Math.log(ys[n-2])) / (Math.log(xs[n-1]) - Math.log(xs[n-2]));
+      return ys[n-1] * Math.pow(x / xs[n-1], sl);
+    }
+    for(var i = 0; i < n - 1; i++){
+      if(xs[i] <= x && x <= xs[i+1]){
+        var t = (lx - Math.log(xs[i])) / (Math.log(xs[i+1]) - Math.log(xs[i]));
+        return Math.exp(Math.log(ys[i]) + t * (Math.log(ys[i+1]) - Math.log(ys[i])));
+      }
+    }
+    return ys[n-1];
+  }
+  function pMass(d, D1, n1){ return 7.85e-3 * Math.PI * d * d / 4 * Math.PI * (D1 - d) * n1 / 1000; }
+  function pMassRef(d, n1){ var D1 = Math.max(d * 8, d + 4); return pMass(d, D1, n1); }
+  function price(q, d, D1, n1){
+    var ti = q < 5 ? 0 : q < 10 ? 1 : q < 20 ? 2 : q < 50 ? 3 : 4;
+    var base = pInterp(PCUR[ti], d);
+    var corr = Math.pow(pMass(d, D1, n1) / pMassRef(d, n1), PALPHA[ti]);
+    return base * corr * Math.pow(PQREP[ti] / q, 0.05);
+  }
+
+  /* ---------- инженерная часть ---------- */
   function calc(){
-    var d = val('cd_d'), D = val('cd_D'), s = val('cd_s'), F = val('cd_F');
+    var d  = val('cd_d'), D1 = val('cd_D1'), l0 = val('cd_l0'), l2 = val('cd_l2');
+    var n1 = val('cd_n1'), n = val('cd_n'), kol = Math.round(val('cd_kol'));
+    var op = document.getElementById('cd_op').value;
     var ok = true;
-    [['cd_d', d>=4 && d<=80], ['cd_D', D>=20 && D<=400], ['cd_s', s>=5 && s<=500], ['cd_F', F>=100 && F<=500000]].forEach(function(p){
-      document.getElementById(p[0]).classList.toggle('bad', !p[1]);
+    [['cd_D1', D1 >= d + 2 && D1 <= 600],
+     ['cd_l0', l0 >= 8 && l0 <= 2000],
+     ['cd_l2', l2 >= 4 && l2 <= l0 - 1],
+     ['cd_n1', n1 >= 2.5 && n1 <= 40],
+     ['cd_n',  n >= 1 && n <= n1],
+     ['cd_kol', kol >= 1 && kol <= 100]].forEach(function(p){
+      var el = document.getElementById(p[0]);
+      el.classList.toggle('bad', !p[1]);
       if(!p[1]) ok = false;
     });
     if(!ok) return null;
-    var k = F / s;
-    var n = G * Math.pow(d, 4) / (8 * Math.pow(D, 3) * k);
-    var C = D / d;
+    var Dc = D1 - d, C = Dc / d;
     var Kw = (4*C - 1) / (4*C - 4) + 0.615 / C;
-    var tau = Kw * 8 * F * D / (Math.PI * Math.pow(d, 3));
-    var nt = n + 2;
-    var Lc = nt * d;
-    var H0 = Lc + 1.15 * s;
+    var c  = G * Math.pow(d, 4) / (8 * Math.pow(Dc, 3) * n);
+    var t  = (l0 - 2 * d) / n;
+    var L  = Math.PI * Dc * n1;
+    var m  = 7.85e-3 * Math.PI * d * d / 4 * L / 1000;
+    var hs = op === '3' ? n1 * d : op === '2' ? (n1 - 0.25) * d : (n1 - 0.5) * d;
+    var S2 = l0 - l2, F2 = c * S2;
+    var tau = Kw * 8 * F2 * Dc / (Math.PI * Math.pow(d, 3));
     var u = tau / TAU_ALLOW;
-    var mass = 7.85e-3 * Math.PI * d * d / 4 * Math.PI * D * nt / 1000;
     var cls = u < 0.45 ? ['c-g','лёгкий'] : u < 0.62 ? ['c-b','средний'] : u < 0.78 ? ['c-r','тяжёлый'] : ['c-y','сверхтяжёлый'];
     var warns = [];
-    if(C < 4) warns.push('Индекс C = ' + C.toFixed(1) + ' < 4 — витки лягут друг на друга, увеличьте Ø средний');
+    if(l2 < hs) warns.push('Рабочая высота l₂ = ' + fmt(l2,0) + ' ниже плотного сжатия ' + fmt(hs,0) + ' мм — витки сомнутся раньше рабочего хода');
+    if(C < 4) warns.push('Индекс C = ' + C.toFixed(1) + ' < 4 — витки лягут друг на друга, увеличите Ø наружный');
     if(C > 12) warns.push('Индекс C = ' + C.toFixed(1) + ' > 12 — пружина гибкая, нужен направляющий шток');
-    if(H0 / D > 3) warns.push('Гибкость H₀/D = ' + (H0/D).toFixed(1) + ' > 3 — риск потери устойчивости: шток или чашка');
-    if(u >= 1) warns.push('τ превышает допускаемые 700 Н/мм² — увеличьте Ø проволоки или Ø средний');
+    if(l0 / D1 > 3) warns.push('Гибкость l₀/D₁ = ' + (l0 / D1).toFixed(1) + ' > 3 — риск потери устойчивости: шток или чашка');
+    if(u >= 1) warns.push('τ превышает допускаемые 700 Н/мм² — увеличьте Ø проволоки или уменьшите ход');
     else if(u >= 0.78) warns.push('Запас по напряжению мал — для циклической нагрузки нужен расчёт на выносливость');
-    return { d:d, D:D, s:s, F:F, k:k, n:n, nt:nt, Lc:Lc, H0:H0, tau:tau, u:u, mass:mass,
-             cls:cls, warns:warns, art:'UP-' + Math.round(H0) + '-' + d,
-             term: d <= 40 ? 'производство 5 дн' : 'производство 10 дн' };
+    var p1 = price(kol, d, D1, n1);
+    return { d:d, D1:D1, Dc:Dc, l0:l0, l2:l2, n1:n1, n:n, kol:kol, C:C, Kw:Kw, c:c, t:t, L:L, m:m, hs:hs,
+             S2:S2, F2:F2, tau:tau, u:u, cls:cls, warns:warns, p1:p1,
+             lad:[price(5,d,D1,n1), price(10,d,D1,n1), price(20,d,D1,n1), price(50,d,D1,n1)],
+             art:'UP-' + d + '\u00D7' + Math.round(D1) + '\u00D7' + Math.round(l0) + '\u00D7' + n1,
+             term: d <= 16 ? 'производство 5 дн' : 'производство 10 дн' };
   }
 
   function render(r){
     document.getElementById('cd_empty').style.display = 'none';
     document.getElementById('cd_table').style.display = 'block';
-    document.getElementById('r_k').innerHTML = fmt(r.k, 1) + ' <small>Н/мм</small>';
-    document.getElementById('r_n').innerHTML = fmt(Math.round(r.n * 2) / 2, 1);
-    document.getElementById('r_h').innerHTML = fmt(r.H0, 0) + ' <small>мм</small>';
-    document.getElementById('r_lc').innerHTML = fmt(r.Lc, 0) + ' <small>мм</small>';
+    document.getElementById('r_c').innerHTML   = fmt(r.c, 1) + ' <small>Н/мм</small>';
+    document.getElementById('r_i').innerHTML   = fmt(r.C, 1);
+    document.getElementById('r_kw').innerHTML  = fmt(r.Kw, 2);
+    document.getElementById('r_t').innerHTML   = fmt(r.t, 1) + ' <small>мм</small>';
+    document.getElementById('r_L').innerHTML   = fmt(r.L, 0) + ' <small>мм</small>';
+    document.getElementById('r_m').innerHTML   = fmt(r.m, 2) + ' <small>кг</small>';
+    document.getElementById('r_hs').innerHTML  = fmt(r.hs, 0) + ' <small>мм</small>';
+    document.getElementById('r_s2').innerHTML  = fmt(r.S2, 0) + ' <small>мм</small>';
+    document.getElementById('r_f2').innerHTML  = fmt(r.F2, 0) + ' <small>Н</small>';
     document.getElementById('r_tau').innerHTML = fmt(r.tau, 0) + ' <small>Н/мм²</small>';
     document.getElementById('r_cls').innerHTML = '<span class="cls ' + r.cls[0] + '">' + r.cls[1] + '</span>';
-    document.getElementById('r_m').innerHTML = fmt(r.mass, 1) + ' <small>кг</small>';
     document.getElementById('r_art').textContent = r.art;
     document.getElementById('r_term').textContent = r.term;
+    document.getElementById('r_kq').textContent = r.kol;
+    document.getElementById('r_p1').innerHTML = fmtR(r.p1) + ' <small>/ шт</small>';
+    document.getElementById('r_l5').textContent  = fmtR(r.lad[0]);
+    document.getElementById('r_l10').textContent = fmtR(r.lad[1]);
+    document.getElementById('r_l20').textContent = fmtR(r.lad[2]);
+    document.getElementById('r_l50').textContent = fmtR(r.lad[3]);
+    document.getElementById('r_tot').textContent = fmtR(r.p1 * r.kol);
     document.getElementById('r_warns').innerHTML = r.warns.map(function(w){ return '<div class="calc-warn">' + w + '</div>'; }).join('');
   }
 
   function go(){ var r = calc(); if(r){ last = r; render(r); } }
   document.getElementById('cd_go').addEventListener('click', go);
-  ['cd_d','cd_D','cd_s','cd_F'].forEach(function(id){
+  ['cd_D1','cd_l0','cd_l2','cd_n1','cd_n','cd_kol'].forEach(function(id){
     document.getElementById(id).addEventListener('keydown', function(e){ if(e.key === 'Enter') go(); });
   });
 
   function specText(r){
+    var navt = { '2': 'правое', '1': 'левое', '3': 'любое' }[document.getElementById('cd_nav').value];
+    var opt = { '1': 'зашлифованы, оба', '2': 'зашлифован один', '3': 'не зашлифованы' }[document.getElementById('cd_op').value];
+    var pkr = document.getElementById('cd_pkr').checked ? '\nПокраска: порошковое покрытие' : '';
     return 'Заявка UPSILA — предварительный расчёт пружины сжатия\n' +
-      'Артикул расчёта: ' + r.art + '\n' +
-      'Ø проволоки: ' + r.d + ' мм\nØ средний: ' + r.D + ' мм\nРабочий ход: ' + r.s + ' мм\nУсилие: ' + r.F + ' Н\n' +
-      'Жёсткость: ' + fmt(r.k, 1) + ' Н/мм\nВитков рабочих: ' + (Math.round(r.n * 2) / 2) + '\n' +
-      'Высота свободная H0: ' + Math.round(r.H0) + ' мм\nНапряжение τ: ' + Math.round(r.tau) + ' Н/мм² (класс: ' + r.cls[1] + ')\n' +
-      'Материал: 60С2А ГОСТ 14963\nСрок: ' + r.term;
+      'Артикул: ' + r.art + '\n' +
+      'Ø проволоки d: ' + r.d + ' мм\nØ наружный D1: ' + r.D1 + ' мм (средний ' + Math.round(r.Dc) + ')\n' +
+      'Высота свободная l0: ' + Math.round(r.l0) + ' мм · рабочая l2: ' + Math.round(r.l2) + ' мм\n' +
+      'Витков: полное ' + r.n1 + ' · рабочее ' + r.n + '\n' +
+      'Навивка: ' + navt + ' · опорные витки: ' + opt + pkr + '\n' +
+      'Жёсткость c: ' + fmt(r.c, 1) + ' Н/мм · шаг t: ' + fmt(r.t, 1) + ' мм\n' +
+      'Усилие при l2: ' + fmt(r.F2, 0) + ' Н (τ = ' + Math.round(r.tau) + ' Н/мм², класс: ' + r.cls[1] + ')\n' +
+      'Заготовка: ' + fmt(r.L, 0) + ' мм · масса ~ ' + fmt(r.m, 2) + ' кг\n' +
+      'Материал: 60С2А ГОСТ 14963\n' +
+      'Партия: ' + r.kol + ' шт\n' +
+      'Цена: ' + fmtR(r.p1) + '/шт · партия: ' + fmtR(r.p1 * r.kol) + ' (предварительно ±20%, не оферта)\n' +
+      'Лестница: от 5 шт — ' + fmtR(r.lad[0]) + ' · от 10 — ' + fmtR(r.lad[1]) + ' · от 20 — ' + fmtR(r.lad[2]) + ' · от 50 — ' + fmtR(r.lad[3]) + ' за шт\n' +
+      'Срок: ' + r.term;
   }
 
   document.getElementById('cd_copy').addEventListener('click', function(){
@@ -904,8 +1063,8 @@
   });
 
   function drawing(r){
-    var SC = Math.min(520 / r.H0, 250 / r.D);
-    var h = r.H0 * SC, w = r.D * SC;
+    var SC = Math.min(520 / r.l0, 250 / r.D1);
+    var h = r.l0 * SC, w = r.D1 * SC;
     var cx = 300, top = 120;
     var xL = cx - w / 2, xR = cx + w / 2;
     var nSeg = Math.max(5, Math.round(r.n) + 3);
@@ -920,27 +1079,24 @@
       '<path d="M'+x2+' '+y2+' l-9 -3 v6 z M'+x1+' '+y1+' l9 -3 v6 z" fill="'+dimC+'" transform="rotate('+(y1===y2?0:90)+' '+x2+' '+y2+')"/>'; }
     var now = new Date();
     var dt = now.toLocaleDateString('ru-RU');
+    var yl2 = top + r.l2 * SC;
     return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 1000" font-family="JetBrains Mono, monospace">' +
       '<rect width="760" height="1000" fill="#fff"/>' +
-      // frame
       '<rect x="20" y="20" width="720" height="960" fill="none" stroke="#111" stroke-width="2"/>' +
       '<rect x="34" y="34" width="692" height="700" fill="none" stroke="#111" stroke-width="1"/>' +
-      // end plates
       '<rect x="'+(xL-14)+'" y="'+(top-12)+'" width="'+(w+28)+'" height="10" fill="#111"/>' +
       '<rect x="'+(xL-14)+'" y="'+(top+h+2)+'" width="'+(w+28)+'" height="10" fill="#111"/>' +
-      // spring
       '<path d="'+path+'" fill="none" stroke="#111" stroke-width="'+sw.toFixed(1)+'" stroke-linejoin="round" stroke-linecap="round"/>' +
-      // H0 dimension
+      '<line x1="'+(xL-14)+'" y1="'+yl2+'" x2="'+(xR+70)+'" y2="'+yl2+'" stroke="#FF6A00" stroke-width="1" stroke-dasharray="6 4"/>' +
       arrow(90, top - 7, 90, top + h + 7) +
-      '<text x="78" y="'+(top + h/2)+'" fill="#111" font-size="15" transform="rotate(-90 78 '+(top+h/2)+')" text-anchor="middle">H0 = '+Math.round(r.H0)+' мм</text>' +
-      // D dimension
+      '<text x="78" y="'+(top + h/2)+'" fill="#111" font-size="15" transform="rotate(-90 78 '+(top+h/2)+')" text-anchor="middle">l0 = '+Math.round(r.l0)+' мм</text>' +
+      arrow(xR + 52, yl2, xR + 52, top + h + 7) +
+      '<text x="'+(xR + 44)+'" y="'+((yl2 + top + h)/2)+'" fill="#FF6A00" font-size="13" transform="rotate(-90 '+(xR+44)+' '+((yl2+top+h)/2)+')" text-anchor="middle">S2 = '+Math.round(r.S2)+' мм</text>' +
       arrow(xL, top + h + 60, xR, top + h + 60) +
-      '<text x="'+cx+'" y="'+(top + h + 88)+'" fill="#111" font-size="15" text-anchor="middle">ØD = '+r.D+' мм</text>' +
-      // d callout
+      '<text x="'+cx+'" y="'+(top + h + 88)+'" fill="#111" font-size="15" text-anchor="middle">ØD1 = '+r.D1+' мм</text>' +
       '<line x1="'+(cx + w/2)+'" y1="'+(top + h*0.3)+'" x2="620" y2="'+(top + 40)+'" stroke="'+dimC+'" stroke-width="1"/>' +
       '<circle cx="'+(cx + w/2)+'" cy="'+(top + h*0.3)+'" r="3" fill="'+dimC+'"/>' +
       '<text x="620" y="'+(top + 32)+'" fill="#111" font-size="14" text-anchor="end">Ø проволоки d = '+r.d+' мм</text>' +
-      // title block
       '<g>' +
       '<rect x="34" y="746" width="692" height="220" fill="none" stroke="#111" stroke-width="1.5"/>' +
       '<line x1="34" y1="800" x2="726" y2="800" stroke="#111" stroke-width="1.5"/>' +
@@ -948,12 +1104,12 @@
       '<line x1="380" y1="800" x2="380" y2="906" stroke="#111" stroke-width="1"/>' +
       '<text x="52" y="782" font-size="24" font-weight="700" fill="#111">UPSILA</text>' +
       '<text x="52" y="822" font-size="11" fill="#444">ПРУЖИНА СЖАТИЯ · ПРЕДВАРИТЕЛЬНЫЙ РАСЧЁТ</text>' +
-      '<text x="620" y="782" font-size="14" fill="#FF6A00" text-anchor="end">'+r.art+'</text>' +
-      '<text x="52" y="846" font-size="12" fill="#111">d = '+r.d+' мм · ØD = '+r.D+' мм · ход s = '+r.s+' мм · F = '+fmt(r.F, 0)+' Н</text>' +
-      '<text x="52" y="868" font-size="12" fill="#111">Жёсткость C = '+fmt(r.k, 1)+' Н/мм · витков раб. '+fmt(Math.round(r.n*2)/2, 1)+' · τ = '+Math.round(r.tau)+' Н/мм²</text>' +
-      '<text x="52" y="890" font-size="12" fill="#111">Материал: 60С2А ГОСТ 14963 · масса ~ '+fmt(r.mass, 1)+' кг</text>' +
-      '<text x="396" y="846" font-size="12" fill="#111">Класс: '+r.cls[1]+'</text>' +
-      '<text x="396" y="868" font-size="12" fill="#111">Срок: '+r.term+'</text>' +
+      '<text x="620" y="782" font-size="13" fill="#FF6A00" text-anchor="end">'+r.art+'</text>' +
+      '<text x="52" y="846" font-size="12" fill="#111">d = '+r.d+' · ØD1 = '+r.D1+' · l0 = '+Math.round(r.l0)+' · l2 = '+Math.round(r.l2)+' · витков '+r.n1+'/'+r.n+'</text>' +
+      '<text x="52" y="868" font-size="12" fill="#111">Жёсткость c = '+fmt(r.c, 1)+' Н/мм · усилие '+fmt(r.F2, 0)+' Н · τ = '+Math.round(r.tau)+' Н/мм²</text>' +
+      '<text x="52" y="890" font-size="12" fill="#111">Материал: 60С2А ГОСТ 14963 · масса ~ '+fmt(r.m, 2)+' кг</text>' +
+      '<text x="396" y="846" font-size="12" fill="#111">Партия: '+r.kol+' шт · '+fmtR(r.p1)+' / шт</text>' +
+      '<text x="396" y="868" font-size="13" font-weight="700" fill="#FF6A00">Итого: '+fmtR(r.p1 * r.kol)+' (±20%, не оферта)</text>' +
       '<text x="396" y="890" font-size="12" fill="#111">Дата: '+dt+'</text>' +
       '<text x="52" y="930" font-size="10" fill="#FF6A00">ЧЕРТЁЖ ПРЕДВАРИТЕЛЬНЫЙ · НЕ ДЛЯ ПРОИЗВОДСТВА · РАБОЧАЯ ДОКУМЕНТАЦИЯ — ПОСЛЕ ПРОВЕРКИ ИНЖЕНЕРОМ UPSILA</text>' +
       '</g></svg>';

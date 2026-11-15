@@ -106,8 +106,8 @@
 <style>
   :root {
     --navy: #15171A;
-    --blue: #FF3D00;
-    --gold: #FF3D00;
+    --blue: #FF6A00;
+    --gold: #FF6A00;
     --ink: #0A0A0B;
     --ink2: #101215;
     --paper: #F4F3F1;
@@ -261,7 +261,7 @@
   }
   .dark .sec-title { color: #fff; }
   .sec-title .gold { color: var(--gold); }
-  .sec-title .blue { color: #FF6A3D; }
+  .sec-title .blue { color: #FF8A3D; }
 
   /* ============ PRODUCTS (dark) ============ */
   .products { background: var(--ink); }
@@ -312,7 +312,7 @@
   .num-cell:nth-child(4) { background: rgba(255,255,255,0.07); }
   .num-cell:nth-child(1) .num-v, .num-cell:nth-child(4) .num-v { color: #ffffff; }
   .num-cell:nth-child(1) .num-k, .num-cell:nth-child(4) .num-k { color: #b8c0d0; }
-  .num-cell:nth-child(1) .num-v span, .num-cell:nth-child(4) .num-v span { color: #FF6A3D; }
+  .num-cell:nth-child(1) .num-v span, .num-cell:nth-child(4) .num-v span { color: #FF8A3D; }
   .num-v {
     font-family: 'Oswald', sans-serif; font-size: clamp(56px, 6vw, 96px); font-weight: 700;
     color: var(--ink); line-height: 1;
@@ -498,7 +498,7 @@
 <nav>
   <div class="inner">
     <div class="logo">
-      <div class="logo-mark"><svg width="16" height="20" viewBox="0 0 200 240" style="display:block"><line x1="38" y1="26" x2="100" y2="128" stroke="#FF3D00" stroke-width="26" stroke-linecap="round"/><line x1="162" y1="26" x2="100" y2="128" stroke="#FF3D00" stroke-width="26" stroke-linecap="round"/><line x1="100" y1="128" x2="100" y2="214" stroke="#FF3D00" stroke-width="26" stroke-linecap="round"/><polyline points="100,146 116,154 84,164 116,174 84,184 100,192" fill="none" stroke="#F4F3F1" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
+      <div class="logo-mark"><svg width="16" height="20" viewBox="0 0 200 240" style="display:block"><line x1="38" y1="26" x2="100" y2="128" stroke="#FF6A00" stroke-width="26" stroke-linecap="round"/><line x1="162" y1="26" x2="100" y2="128" stroke="#FF6A00" stroke-width="26" stroke-linecap="round"/><line x1="100" y1="128" x2="100" y2="214" stroke="#FF6A00" stroke-width="26" stroke-linecap="round"/><polyline points="100,146 116,154 84,164 116,174 84,184 100,192" fill="none" stroke="#F4F3F1" stroke-width="7" stroke-linejoin="round" stroke-linecap="round"/></svg></div>
       <div>
         <div class="logo-name">UPSILA</div>
         <div class="logo-sub">Сила в сжатии · пружины полного цикла</div>
@@ -948,14 +948,14 @@
       '<line x1="380" y1="800" x2="380" y2="906" stroke="#111" stroke-width="1"/>' +
       '<text x="52" y="782" font-size="24" font-weight="700" fill="#111">UPSILA</text>' +
       '<text x="52" y="822" font-size="11" fill="#444">ПРУЖИНА СЖАТИЯ · ПРЕДВАРИТЕЛЬНЫЙ РАСЧЁТ</text>' +
-      '<text x="620" y="782" font-size="14" fill="#FF3D00" text-anchor="end">'+r.art+'</text>' +
+      '<text x="620" y="782" font-size="14" fill="#FF6A00" text-anchor="end">'+r.art+'</text>' +
       '<text x="52" y="846" font-size="12" fill="#111">d = '+r.d+' мм · ØD = '+r.D+' мм · ход s = '+r.s+' мм · F = '+fmt(r.F, 0)+' Н</text>' +
       '<text x="52" y="868" font-size="12" fill="#111">Жёсткость C = '+fmt(r.k, 1)+' Н/мм · витков раб. '+fmt(Math.round(r.n*2)/2, 1)+' · τ = '+Math.round(r.tau)+' Н/мм²</text>' +
       '<text x="52" y="890" font-size="12" fill="#111">Материал: 60С2А ГОСТ 14963 · масса ~ '+fmt(r.mass, 1)+' кг</text>' +
       '<text x="396" y="846" font-size="12" fill="#111">Класс: '+r.cls[1]+'</text>' +
       '<text x="396" y="868" font-size="12" fill="#111">Срок: '+r.term+'</text>' +
       '<text x="396" y="890" font-size="12" fill="#111">Дата: '+dt+'</text>' +
-      '<text x="52" y="930" font-size="10" fill="#FF3D00">ЧЕРТЁЖ ПРЕДВАРИТЕЛЬНЫЙ · НЕ ДЛЯ ПРОИЗВОДСТВА · РАБОЧАЯ ДОКУМЕНТАЦИЯ — ПОСЛЕ ПРОВЕРКИ ИНЖЕНЕРОМ UPSILA</text>' +
+      '<text x="52" y="930" font-size="10" fill="#FF6A00">ЧЕРТЁЖ ПРЕДВАРИТЕЛЬНЫЙ · НЕ ДЛЯ ПРОИЗВОДСТВА · РАБОЧАЯ ДОКУМЕНТАЦИЯ — ПОСЛЕ ПРОВЕРКИ ИНЖЕНЕРОМ UPSILA</text>' +
       '</g></svg>';
   }
 
